@@ -214,3 +214,19 @@ void Rto_thatday(int year, int month, int day) {
                 printf("File not existence!\n");
 
 }
+//e만 입력했을 시 오늘의 일기를 쓰는 함수, e를 눌러 오늘의 일기를 쓰면 글을 처음부터 다시 쓸 수 있다.
+void Wto_today(int year, int month, int day) {
+
+        FILE *fp;
+        char today[100];
+        int open, write;
+
+        sprintf(today, "%d%d%d.txt", year, month, day);
+        printf(" *%4d년%2d월%2d일=========If you want to stop read diary, enter the ctrl+D!* \n", year, month, day);
+        fp = fopen(today, "w");
+        while( ( write=getchar() ) != EOF)
+                putc(write, fp);
+        fclose(fp);
+        printf("end \n");
+}
+
