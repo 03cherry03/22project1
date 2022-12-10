@@ -2,6 +2,15 @@
 #include<time.h>
 #include<unistd.h>
 
+int Allday(int year);
+void Feb_PM(int year);
+void Year_MF(int year);
+void Month_MF(int year, int month);
+void Star_PR(int year, int month, int day);
+void Rto_thatday(int year, int month, int day);
+void Wto_today(int year, int month, int day);
+void Wto_thatday(int year, int month, int day);
+
 int lastday[12] = {31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};
 
 int main(void)
@@ -11,19 +20,16 @@ int main(void)
         char c;
          int spa, year, month, day, rec, dev1 = 0, dev2 = 0, dev3 = 0;
 
-        //시작시 현재의 년월일을 출력한다
-
+        //시작시 오늘의 년월일을 출력
         now = time(NULL);
         tp = localtime(&now);
-
         printf("Today : %d %d %d\n", tp->tm_year + 1900, tp->tm_mon + 1, tp->tm_mday) ;
-
                 while ( (dev2 != 1) && (dev3 != 1) ) { //end명령어가 들어올 때까지 돌린다
-
                         spa = 0, year = 0, month = 0, day = 0, rec = 0, dev1 = 0, dev2 = 0, dev3 = 0;
                         printf("Input : ");
 
                 while( ( c = getchar() ) != '\n' ) {
+
                                 if ( c == 'e' ) {
                                         dev1 = 1; --spa; //e명령어 사용 시 공백이 하나 더 들어오게 되므로
                                 }
@@ -45,13 +51,12 @@ int main(void)
                        }
                 }
 
+
                 if( dev1 == 0 ) { //그냥 날짜만 입력했을경우를 처리한다
                 if( year != 0 && month == 0 && day == 0 ) //년도만 입력했을경우 그 년도의 달력을 출력한다
                         Year_MF(year);
-
                 if( year != 0 && month != 0 && day == 0 ) //년월을 입력했을경우 그 년월의 달력을 출력한다
                         Month_MF(year, month);
-
                 if( year != 0 && month != 0 && day != 0 ) //년월일을 입력했을 경우 그날의 일기를 읽는다
                         Rto_thatday(year, month, day);
                 }
@@ -63,37 +68,77 @@ int main(void)
                                 Wto_thatday(year, month, day);
                         }
                 }
-
                 return 0;
-
 }
 
 
 
 //전년도 이전의 날수를 계산하는 함수
-
 int Allday(int year) { //이것 역시 윤년을 생각. 4년마다 윤년이지만 100년마다는 아니고 400년마다는 윤년이다
-
         year = (year-1) * 365 + (year-1) / 4 - (year-1)/100 + (year-1)/400 + 1;
-
         return year;
-
 }
-
-
 
 //윤년일 경우 2월의 마지막일수를 바꿔주는 함수
-
 void Feb_PM(int year) {
-
         if( (year % 400 == 0) || ((year % 4 == 0) && (year % 100 !=0)) )
-
         //400년의 배수는 무조건 윤년임을 주의(단축평가)
-
                 lastday[1] = 29; //윤년일 경우에 전역변수배열 2월의 날짜를 29로 변경경시킨다
-
         else
-
                 lastday[1] = 28;
-
 }
+
+//일년의 달력을 출력하는 함수. Zterm크기에 맞춰서 비쥬얼이나 다른 곳에서는 밀려서 출력됨.
+void Year_MF(int year) {
+        int k, i, j, l, yoil, line, nao;
+        int tremon[3][6][7];
+
+        printf("%4d \n", year);
+
+        nao = year;
+        Feb_PM(year);
+        year = Allday(year);
+
+        //달력을 세개씩 묶어서 출력
+    for( k=1 ; k<12 ; k+=3 ) { //12달중 왼쪽에 오는 달은 1,4,7,10달 이므로
+        printf("            %3d월                          %3d월                         %3d월\n", k, k+1, k+2);
+        printf(" sun mon tue wed thu fri sat    sun mon tue wed thu fri sat    sun mon tue wed thu fri sat \n");
+
+        //배열을 초기화
+        for( i=0 ; i<3 ; i++ )
+                        for( j=0 ; j<6 ; j++ )
+                                for( l=0 ; l<7 ; l++ )
+                                        tremon[i][j][l] = 0;
+        for( i=0 ; i<3 ; i++ ) { //세개씩 묶어 돌렸으므로
+                        if( k + i - 2 >= 0 ) //1월일 경우 전년도까지의 날수만 필요하므로 더할 필요가 없다
+                                year = year + lastday[k+i-2];
+            yoil = year % 7;  //7로 나누어 0이면 일요일 1이면 월요일...
+            line = 0;
+
+            for ( j=1 ; j<=lastday[k+i-1] ; j++ ) {
+                                tremon[i][line][yoil++] = j;
+                if ( yoil >= 7 ) {
+                                        yoil=0; line+=1;
+                                }
+                        }
+                }
+
+                for( i=0 ; i<6 ; i++) {
+                        for( j=0 ; j<3 ; j++) {
+                                for( l=0 ; l<7 ; l++) {
+                                        if(tremon[j][i][l] != 0){
+                                                printf("%3d",tremon[j][i][l]);
+                                                Star_PR(nao, k+j, tremon[j][i][l]); //일기가 있을때, 별표시를 하는 함수 호출
+                                        }
+                    else
+                                                printf("    ");
+                                }
+                printf("   ");
+                        }
+            printf("\n");
+                }
+        printf("\n");
+        }
+    printf("end \n");
+}
+
