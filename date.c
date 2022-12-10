@@ -230,3 +230,36 @@ void Wto_today(int year, int month, int day) {
         printf("end \n");
 }
 
+//e년월일을 입력했을 시 그날의 일기를 쓰는 함수. 예전에 썼던 일기를 출력하고 수정할 수 없다. 추가쓰기는 가능.
+void Wto_thatday(int year, int month, int day) {
+        FILE *fp;
+        char thatday[100];
+        int et, open, write;
+
+        sprintf(thatday, "%d%d%d.txt", year, month, day);
+        et = access(thatday, F_OK) + 1;
+
+        if( et == 1 ) {
+                printf("already esistence!\n");
+                printf(" *%4d년%2d월%2d일=========일기쓰기를 끝내고 싶다면 ctrl+D를 누르세요!* \n", year, month, day);
+                fp = fopen(thatday, "r");
+                while( ( open=getc(fp) ) != EOF )
+                        putchar(open);
+                fclose(fp);
+                fp = fopen(thatday, "a");
+                while( ( write=getchar() ) != EOF)
+                        putc(write, fp);
+                fclose(fp);
+                printf("end \n");
+        }
+
+        if( et == 0 ) { //파일이 없을 경우 쓰기모드로 파일을 열어(파일이 자동생성된다)일기를 쓴다
+                printf(" *%4d년%2d월%2d일=========일기쓰기를 끝내고 싶다면 ctrl+D를 누르세요!* \n",
+                       year, month, day);
+                fp = fopen(thatday, "w");
+                while( ( write=getchar() ) != EOF )
+                        putc(write, fp);
+                fclose(fp);
+                printf("end\n");
+        }
+}
