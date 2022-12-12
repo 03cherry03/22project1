@@ -1,3 +1,4 @@
+//20221791 박수현 ver.1
 #include <stdio.h>
 #include<time.h>
 #include<unistd.h>
