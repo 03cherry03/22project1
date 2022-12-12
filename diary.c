@@ -1,16 +1,60 @@
-#include<stdio.h>
-#include<time.h>
-#include<unistd.h>
+#include <stdio.h>
+#include <time.h>
+#include <unistd.h>
+#include <stdlib.h>
+#define MAX_COUNT 12
 #include "diary.h"
 
 int lastday[12] = {31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};
 
+struct node{
+    int month_lastday;
+    struct node *next;
+};
+
+void print_list(struct node* list_head)
+{
+    while(list_head != NULL){
+        printf("%d => ", list_head -> month_lastday);
+        list_head = list_head -> next;
+    }
+    printf("\n");
+}
+
+
 int main(void)
 {
-        double luck[3];
+
+
+        int count=0;
+        int tmp_lastday = 0;
+
+        struct node* new_node; 
+        struct node* list_head = NULL; 
+
+        while (count < MAX_COUNT) {
+                tmp_lastday = lastday[count];
+
+        new_node = (struct node*) malloc (sizeof(struct node));
+        new_node->month_lastday = tmp_lastday;
+
+        new_node->next = list_head;
+        list_head = new_node;
+        print_list(list_head);
+        count++;
+        }
+        
+        void (*pf)(int, int, int);
+        pf = Wto_today;
+
+
+
+
+
+
 
         time_t now;
-        struct tm *tp;
+        struct tm *tp; //struct를 활용하여 자료구조 설계
         char c;
          int spa, year, month, day, rec, dev1 = 0, dev2 = 0, dev3 = 0;
 
@@ -46,18 +90,18 @@ int main(void)
                 }
 
 
-                if( dev1 == 0 ) { //그냥 날짜만 입력했을경우를 처리한다
-                if( year != 0 && month == 0 && day == 0 ) //년도만 입력했을경우 그 년도의 달력을 출력한다
+                if( dev1 == 0 ) {
+                if( year != 0 && month == 0 && day == 0 ) 
                         Year_MF(year);
-                if( year != 0 && month != 0 && day == 0 ) //년월을 입력했을경우 그 년월의 달력을 출력한다
+                if( year != 0 && month != 0 && day == 0 ) 
                         Month_MF(year, month);
-                if( year != 0 && month != 0 && day != 0 ) //년월일을 입력했을 경우 그날의 일기를 읽는다
+                if( year != 0 && month != 0 && day != 0 )
                         Rto_thatday(year, month, day);
                 }
 
-                if( dev1 == 1 && dev2 != 1 && dev3 != 1 && rec == 0 ) { //e명령어를 처리한다
+                if( dev1 == 1 && dev2 != 1 && dev3 != 1 && rec == 0 ) { 
                         if( year == 0 && month == 0 && day == 0 ) //e만 입력시 오늘의 일기를 쓴다
-                                Wto_today(tp->tm_year + 1900, tp->tm_mon + 1, tp->tm_mday);
+                                pf(tp->tm_year + 1900, tp->tm_mon + 1, tp->tm_mday);
                         if( year != 0 && month != 0 && day != 0 ) //e년월일 입력시 그날의 일기를 쓴다
                                 Wto_thatday(year, month, day);
                         }
