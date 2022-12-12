@@ -1,4 +1,4 @@
-//20221791 박수현
+//20221791 박수현 ver.1
 
 #include <stdio.h>
 #include <time.h>
@@ -60,7 +60,6 @@ int main(void)
         char c;
          int spa, year, month, day, rec, dev1 = 0, dev2 = 0, dev3 = 0;
 
-        //시작시 오늘의 년월일을 출력
         now = time(NULL);
         tp = localtime(&now);
         printf("Today : %d %d %d\n", tp->tm_year + 1900, tp->tm_mon + 1, tp->tm_mday) ;
@@ -71,22 +70,22 @@ int main(void)
                 while( ( c = getchar() ) != '\n' ) {
 
                                 if ( c == 'e' ) {
-                                        dev1 = 1; --spa; //e명령어 사용 시 공백이 하나 더 들어오게 되므로
+                                        dev1 = 1; --spa; 
                                 }
 
                 else if ( (dev1 == 1) && (c == 'n') )
                     dev2 = 1;
                 else if ( (dev1 == 1) && (dev2 == 1) && (c == 'd') ) //end를 순서에 맞게 치면 프로그램 종료
                     dev3 = 1;
-                else if ( (c >= '0') && (c <= '9') && (spa == 0) ) //char형으로 받은 문자를 int형으로 수정
+                else if ( (c >= '0') && (c <= '9') && (spa == 0) ) 
                     year = year * 10 + ( c - '0' );
                 else if ( (c >= '0') && (c <= '9') && (spa == 1) )
                     month = month * 10 + ( c - '0');
                 else if ( (c >= '0') && (c <= '9') && (spa == 2) )
                     day = day * 10 + ( c - '0');
-                else if ( c == ' ') //년월일을 공백으로 구분
+                else if ( c == ' ') 
                     ++spa;
-                else { //계획에 없던 인풋들을 처리. rec값을 변화 시키는 것은 특히 e로 사작하는 인풋을 위한것
+                else { 
                                         printf("Error!\n"); fflush(stdin); rec = 1; break;
                        }
                 }

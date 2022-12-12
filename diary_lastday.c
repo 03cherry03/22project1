@@ -52,8 +52,7 @@ void def_lastday()
 
 void Feb_PM(int year) {
         if( (year % 400 == 0) || ((year % 4 == 0) && (year % 100 !=0)) )
-        //400년의 배수는 무조건 윤년임을 주의(단축평가)
-                lastday2[1] = 29; //윤년일 경우에 전역변수배열 2월의 날짜를 29로 변경경시킨다
+                lastday2[1] = 29; 
         else
                 lastday2[1] = 28;
 }
@@ -68,20 +67,18 @@ void Year_MF(int year) {
         Feb_PM(year);
         year = Allday(year);
 
-        //달력을 세개씩 묶어서 출력
-    for( k=1 ; k<12 ; k+=3 ) { //12달중 왼쪽에 오는 달은 1,4,7,10달 이므로
+    for( k=1 ; k<12 ; k+=3 ) { 
         printf("            %3d월                          %3d월                         %3d월\n", k, k+1, k+2);
         printf(" sun mon tue wed thu fri sat    sun mon tue wed thu fri sat    sun mon tue wed thu fri sat \n");
 
-        //배열을 초기화
         for( i=0 ; i<3 ; i++ )
                         for( j=0 ; j<6 ; j++ )
                                 for( l=0 ; l<7 ; l++ )
                                         tremon[i][j][l] = 0;
-        for( i=0 ; i<3 ; i++ ) { //세개씩 묶어 돌렸으므로
-                        if( k + i - 2 >= 0 ) //1월일 경우 전년도까지의 날수만 필요하므로 더할 필요가 없다
+        for( i=0 ; i<3 ; i++ ) {
+                        if( k + i - 2 >= 0 ) 
                                 year = year + lastday2[k+i-2];
-            yoil = year % 7;  //7로 나누어 0이면 일요일 1이면 월요일...
+            yoil = year % 7;  
             line = 0;
 
             for ( j=1 ; j<=lastday2[k+i-1] ; j++ ) {
@@ -97,7 +94,7 @@ void Year_MF(int year) {
                                 for( l=0 ; l<7 ; l++) {
                                         if(tremon[j][i][l] != 0){
                                                 printf("%3d",tremon[j][i][l]);
-                                                Star_PR(nao, k+j, tremon[j][i][l]); //일기가 있을때, 별표시를 하는 함수 호출
+                                                Star_PR(nao, k+j, tremon[j][i][l]);
                                         }
                     else
                                                 printf("    ");
@@ -122,7 +119,7 @@ void Month_MF(int year, int month) {
         Feb_PM(year);
         year = Allday(year);
 
-        for( i=0 ; i<6 ; i++ ) //이차원배열 초기화
+        for( i=0 ; i<6 ; i++ ) 
                 for ( j=0 ; j<7 ; j++)
                         onemon[i][j] = 0;
 

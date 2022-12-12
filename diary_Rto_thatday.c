@@ -11,7 +11,7 @@ void Rto_thatday(int year, int month, int day) {
         sprintf(thatday, "%d%d%d.txt", year, month, day);
         et = access(thatday, F_OK) + 1;
 
-        if( et == 1 ) { //파일이 있으면 읽기 모드로 파일을 열어 출력한다
+        if( et == 1 ) { //파일 출력
                 printf(" %4d년%2d월%2d일 \n", year, month, day);
                 fp = fopen(thatday, "r");
                 while( ( open=getc(fp) ) != EOF )
@@ -19,7 +19,7 @@ void Rto_thatday(int year, int month, int day) {
                 fclose(fp);
                 printf(" *========================================================================* \n");
         }
-        if( et == 0 ) //파일이 없으면 아래와 같은 메세지를 출력후 아무것도 열지 않고 끝낸다
+        if( et == 0 ) 
                 printf("File not existence!\n");
 
 }
