@@ -9,25 +9,8 @@
 
 int lastday[12] = {31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};
 
-struct node{
-    int month_lastday;
-    struct node *next;
-};
-
-void print_list(struct node* list_head)
-{
-    while(list_head != NULL){
-        printf("%d => ", list_head -> month_lastday);
-        list_head = list_head -> next;
-    }
-    printf("\n");
-}
-
-
 int main(void)
 {
-
-
         int count=0;
         int tmp_lastday = 0;
 
@@ -42,18 +25,11 @@ int main(void)
 
         new_node->next = list_head;
         list_head = new_node;
-        print_list(list_head);
         count++;
         }
         
         void (*pf)(int, int, int);
         pf = Wto_today;
-
-
-
-
-
-
 
         time_t now;
         struct tm *tp; //struct를 활용하여 자료구조 설계

@@ -6,49 +6,7 @@
 #define MAX_COUNT 12
 #include "diary.h"
 
-
 int lastday2[12] = {31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};
-
-/*
-struct node{
-    int month_lastday;
-    struct node *next;
-};
-
-void print_list(struct node* list_head)
-{
-    while(list_head != NULL){
-        printf("%d => ", list_head -> month_lastday);
-        list_head = list_head -> next;
-    }
-    printf("\n");
-}
-
-void def_lastday()
-{
-    int count=0;
-    int tmp_lastday = 0;
-
-    struct node* new_node; // 새로운 노드 위치 저장할 포인터
-    struct node* list_head = NULL; // 리스트의 시작 노드
-
-    while (count < MAX_COUNT) {
-    // lastday로부터 입력
-        tmp_lastday = lastday2[count];
-
-    // 1. 노드 생성
-    new_node =
-        (struct node*) malloc (sizeof(struct node));
-    new_node->month_lastday = tmp_lastday;
-
-    // 2. 노드 연결
-    new_node->next = list_head;
-    list_head = new_node;
-    print_list(list_head);
-    count++;
-    }
-}
-*/
 
 void Feb_PM(int year) {
         if( (year % 400 == 0) || ((year % 4 == 0) && (year % 100 !=0)) )
