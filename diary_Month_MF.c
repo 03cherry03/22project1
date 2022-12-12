@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include<time.h>
 #include<unistd.h>
+#include "diary.h"
 
 int lastday[12] = {31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};
 

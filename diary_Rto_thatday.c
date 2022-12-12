@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include<time.h>
 #include<unistd.h>
+#include "diary.h"
 
 void Rto_thatday(int year, int month, int day) {
         FILE *fp;

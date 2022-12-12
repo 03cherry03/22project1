@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include<time.h>
 #include<unistd.h>
+#include "diary.h"
 
 void Star_PR(int year, int month, int day) {
         char mabi[100];

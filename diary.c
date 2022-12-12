@@ -7,6 +7,8 @@ int lastday[12] = {31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};
 
 int main(void)
 {
+        double luck[3];
+
         time_t now;
         struct tm *tp;
         char c;
