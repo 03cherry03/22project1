@@ -26,10 +26,10 @@ int main(void)
         new_node->next = list_head;
         list_head = new_node;
         count++;
-        }
+        } //동적할당과 연결리스트 사용
         
         void (*pf)(int, int, int);
-        pf = Wto_today;
+        pf = Wto_today; //함수 포인터 인자
 
         time_t now;
         struct tm *tp; //struct를 활용하여 자료구조 설계
@@ -39,7 +39,7 @@ int main(void)
         now = time(NULL);
         tp = localtime(&now);
         printf("Today : %d %d %d\n", tp->tm_year + 1900, tp->tm_mon + 1, tp->tm_mday) ;
-                while ( (dev2 != 1) && (dev3 != 1) ) { //end명령어가 들어올 때까지 돌린다
+                while ( (dev2 != 1) && (dev3 != 1) ) { //end명령어가 들어올 때까지 실행
                         spa = 0, year = 0, month = 0, day = 0, rec = 0, dev1 = 0, dev2 = 0, dev3 = 0;
                         printf("Input : ");
 
@@ -51,7 +51,7 @@ int main(void)
 
                 else if ( (dev1 == 1) && (c == 'n') )
                     dev2 = 1;
-                else if ( (dev1 == 1) && (dev2 == 1) && (c == 'd') ) //end를 순서에 맞게 치면 프로그램 종료
+                else if ( (dev1 == 1) && (dev2 == 1) && (c == 'd') )
                     dev3 = 1;
                 else if ( (c >= '0') && (c <= '9') && (spa == 0) ) 
                     year = year * 10 + ( c - '0' );
@@ -77,9 +77,9 @@ int main(void)
                 }
 
                 if( dev1 == 1 && dev2 != 1 && dev3 != 1 && rec == 0 ) { 
-                        if( year == 0 && month == 0 && day == 0 ) //e만 입력시 오늘의 일기를 쓴다
-                                pf(tp->tm_year + 1900, tp->tm_mon + 1, tp->tm_mday);
-                        if( year != 0 && month != 0 && day != 0 ) //e년월일 입력시 그날의 일기를 쓴다
+                        if( year == 0 && month == 0 && day == 0 ) //e만 입력시 오늘의 일기 작성
+                                pf(tp->tm_year + 1900, tp->tm_mon + 1, tp->tm_mday); //함수 포인터를 인자로 전달하는 구현 방법 사용
+                        if( year != 0 && month != 0 && day != 0 ) //e년월일 입력시 그날의 일기 작성
                                 Wto_thatday(year, month, day);
                         }
                 }

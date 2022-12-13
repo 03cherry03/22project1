@@ -26,7 +26,7 @@ void Wto_thatday(int year, int month, int day) {
                 printf("end \n");
         }
 
-        if( et == 0 ) { //파일이 없을 경우 쓰기모드로 파일을 열어(파일이 자동생성된다)일기를 쓴다
+        if( et == 0 ) { //파일이 없을 경우 쓰기모드로 txt 자동 생성 후 파일을 열어 일기 작성
                 printf(" *%4d년%2d월%2d일=========일기쓰기를 끝내고 싶다면 ctrl+D를 누르세요!* \n",
                        year, month, day);
                 fp = fopen(thatday, "w");
