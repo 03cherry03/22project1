@@ -1,3 +1,8 @@
+struct node{
+    int month_lastday;
+    struct node *next;
+};
+
 int Allday(int year);
 void Feb_PM(int year);
 void Year_MF(int year);
